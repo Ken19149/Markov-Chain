@@ -1,3 +1,8 @@
-text = "This   string  has   multiple    spaces."
-text = " ".join(text.split())
+text = "hello"
+
+try:
+    text = "hi"
+except: 
+    text = "nihao"
+
 print(text)

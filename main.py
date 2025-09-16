@@ -27,8 +27,9 @@ def book_collection(link, location):
         text = (str(response.content)[2:-1].replace("\\n", "").replace("\\t", ""))
         try: 
             text = text.split("<span class=\"mw-headline\" id=\"Vol._1\">Vol. 1</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
-        except: 
-            text = text.split("<span id=\"Vol_1\" class=\"mw-headline\">Vol 1</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
+        except Exception as e: 
+            # text = text.split("<span id=\"Vol_1\" class=\"mw-headline\">Vol 1</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
+            return ""
 
         text = text.replace("[", "").replace("]", "").replace("\\", "").replace("&#8212;", "—")
 
@@ -46,10 +47,13 @@ def other_book(link, location):
         try:
             text = text.split("<span class=\"mw-headline\" id=\"Text\">Text</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
         except: 
+            '''
             try: 
                 text = text.split("<span id=\"Lore\" class=\"mw-headline\">Lore</span>")[1].split("<span id=\"Other_Languages\" class=\"mw-headline\">Other Languages</span>")[0]
             except: 
                 text = text.split("<span id=\"Description\" class=\"mw-headline\">Description</span>")[1].split("<span id=\"Other_Languages\" class=\"mw-headline\">Other Languages</span>")[0]
+            '''
+            return ""
         text = text.replace("[", "").replace("]", "").replace("\\", "").replace("&#8212;", "—")
 
         text = remove_between(text, "<", ">")
@@ -69,7 +73,7 @@ with open("books/book collections list.txt", "r", encoding="utf8") as f:
                 content.write(book_collection(lists[i], "books/book collections contents"))
                 print(f"Book Collection Done ({i+1}/{len(lists)}): {lists[i]}")
         except Exception as e: 
-            print(f"----------\nFailed ({i+1}/{len(lists)}) | Book Collection: {lists[i]}\n----------")
+            print(f"----------\nFailed ({i+1}/{len(lists)}) | Book Collection: {lists[i]}\n{e}\n----------")
 
 print("===========================\nBook Collections Completed!!!\n===========================")
 
@@ -80,8 +84,8 @@ with open("books/other books list.txt", "r", encoding="utf8") as f:
             with open("book content.txt", "a", encoding="utf8") as content: 
                 content.write(other_book(lists[i], "books/other books contents"))
                 print(f"Other Book Done ({i+1}/{len(lists)}): {lists[i]}")
-        except: 
-            print(f"----------\nFailed ({i+1}/{len(lists)}) | Other Book: {lists[i]}\n----------")
+        except Exception as e: 
+            print(f"----------\nFailed ({i+1}/{len(lists)}) | Other Book: {lists[i]}\n{e}\n----------")
 
 print("===========================\n Other Books Completed!!!\n===========================")
 

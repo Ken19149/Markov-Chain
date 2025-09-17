@@ -28,14 +28,21 @@ def book_collection(link, location):
         try: 
             text = text.split("<span class=\"mw-headline\" id=\"Vol._1\">Vol. 1</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
         except Exception as e: 
+            print("FAILED")
             # text = text.split("<span id=\"Vol_1\" class=\"mw-headline\">Vol 1</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
+            text = ""
             return ""
+        
+        try: 
+            text = text.split("Other Languages")[0]
+        except: 
+            pass
 
         text = text.replace("[", "").replace("]", "").replace("\\", "").replace("&#8212;", "—")
 
         text = remove_between(text, "<", ">")
         # text = remove_between(text, "{", "}")
-
+        print(text)
         f.write(text)
         return text
 
@@ -47,18 +54,26 @@ def other_book(link, location):
         try:
             text = text.split("<span class=\"mw-headline\" id=\"Text\">Text</span>")[1].split("<span class=\"mw-headline\" id=\"Trivia\">Trivia</span>")[0]
         except: 
+            print("FAILED")
             '''
             try: 
                 text = text.split("<span id=\"Lore\" class=\"mw-headline\">Lore</span>")[1].split("<span id=\"Other_Languages\" class=\"mw-headline\">Other Languages</span>")[0]
             except: 
                 text = text.split("<span id=\"Description\" class=\"mw-headline\">Description</span>")[1].split("<span id=\"Other_Languages\" class=\"mw-headline\">Other Languages</span>")[0]
             '''
+            text = ""
             return ""
         text = text.replace("[", "").replace("]", "").replace("\\", "").replace("&#8212;", "—")
 
         text = remove_between(text, "<", ">")
-        # text = remove_between(text, "{", "}")
 
+        try: 
+            text = text.split("Other Languages")[0]
+        except: 
+            pass
+
+        # text = remove_between(text, "{", "}")
+        print(text)
         f.write(text)
         return text
 

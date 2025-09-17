@@ -1,8 +1,13 @@
 text = "hello"
 
+a = 1
+b = "yes"
+
 try:
-    text = "hi"
+    print("hi")
+    print(a+b)
+    print("maybe")
 except: 
-    text = "nihao"
+    print("no")
 
 print(text)

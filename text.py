@@ -76,15 +76,17 @@ def other_book(link, location):
         print(text)
         f.write(text)
         return text
+    
+corpus = "corpus.txt"
 
-with open("book content.txt", "w") as f:
+with open(corpus, "w") as f:
     f.write("")
 
 with open("books/book collections list.txt", "r", encoding="utf8") as f: 
     lists = f.read().split("\n")
     for i in range(0, len(lists)): 
         try:
-            with open("book content.txt", "a", encoding="utf8") as content: 
+            with open(corpus, "a", encoding="utf8") as content: 
                 content.write(book_collection(lists[i], "books/book collections contents"))
                 print(f"Book Collection Done ({i+1}/{len(lists)}): {lists[i]}")
         except Exception as e: 
@@ -96,7 +98,7 @@ with open("books/other books list.txt", "r", encoding="utf8") as f:
     lists = f.read().split("\n")
     for i in range(0, len(lists)): 
         try: 
-            with open("book content.txt", "a", encoding="utf8") as content: 
+            with open(corpus, "a", encoding="utf8") as content: 
                 content.write(other_book(lists[i], "books/other books contents"))
                 print(f"Other Book Done ({i+1}/{len(lists)}): {lists[i]}")
         except Exception as e: 
